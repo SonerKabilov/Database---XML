@@ -8,6 +8,7 @@ public class Menu {
         String menuChoice;
         Scanner sc = new Scanner(System.in);
         FileOperations fileOperations = new FileOperations();
+        TableOperations tableOperations = new TableOperations();
 
         do {
             System.out.println("****Menu****");
@@ -25,6 +26,9 @@ public class Menu {
             switch (arrOfString[0]) {
                 case "open":
                     fileOperations.openFile(arrOfString[1]);
+                    break;
+                case "insert":
+                    tableOperations.insertNode(arrOfString[1]);
                     break;
                 case "exit":
                     break;
