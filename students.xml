@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<students>
+  <config elementTag="student">
+    <configElement type="name">String</configElement>
+    <configElement type="age">Integer</configElement>
+  </config>
+</students>
