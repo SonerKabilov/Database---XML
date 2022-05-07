@@ -33,6 +33,9 @@ public class Menu {
                 case "describe":
                     tableOperations.describe(arrOfString[1]);
                     break;
+                case "delete":
+                    tableOperations.deleteColumn(arrOfString[1], arrOfString[2], arrOfString[3]);
+                    break;
                 case "exit":
                     break;
                 default:

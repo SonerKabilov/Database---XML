@@ -8,4 +8,12 @@
     <name>Peter</name>
     <age>25</age>
   </student>
+<student>
+    <name>Anna</name>
+    <age>20</age>
+  </student>
+<student>
+    <name>George</name>
+    <age>30</age>
+  </student>
 </students>
