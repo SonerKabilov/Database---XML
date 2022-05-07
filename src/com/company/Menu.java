@@ -30,6 +30,9 @@ public class Menu {
                 case "insert":
                     tableOperations.insertNode(arrOfString[1]);
                     break;
+                case "describe":
+                    tableOperations.describe(arrOfString[1]);
+                    break;
                 case "exit":
                     break;
                 default:

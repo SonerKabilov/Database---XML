@@ -99,4 +99,35 @@ public class TableOperations {
             e.printStackTrace();
         }
     }
+
+    public void describe(String openedFile) {
+        File xmlFile = new File(openedFile);
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(xmlFile);
+            doc.getDocumentElement().normalize();
+            NodeList nList = doc.getElementsByTagName("config");
+
+            for (int i = 0; i < nList.getLength(); i++) {
+                Node nNode = nList.item(i);
+                System.out.println(nNode.getNodeName());
+                if (nNode.getNodeType() == nNode.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    NodeList configElement = eElement.getElementsByTagName("configElement");
+                    for(int j = 0; j < configElement.getLength(); j++) {
+                        Node node1 = configElement.item(j);
+                        if (node1.getNodeType() == node1.ELEMENT_NODE) {
+                            Element el = (Element) node1;
+                            System.out.println(el.getAttribute("type") + ": " + el.getTextContent());
+                        }
+                    }
+                }
+            }
+            System.out.println();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
