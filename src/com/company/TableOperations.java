@@ -167,4 +167,41 @@ public class TableOperations {
             e.printStackTrace();
         }
     }
+
+    public void updateColumn(String openedFile, String columnName, String columnValue, String newColumnValue) {
+        File xmlFile = new File(openedFile);
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(xmlFile);
+            doc.getDocumentElement().normalize();
+
+            Element root = doc.getDocumentElement();
+            NodeList childNodes = root.getChildNodes();
+
+            for(int i = 0; i < childNodes.getLength(); i++) {
+                Node node = childNodes.item(i);
+                if(!node.getNodeName().equals("config")) {
+                    if (node.getNodeType() == Node.ELEMENT_NODE) {
+                        Element eElement = (Element) node;
+                        String cElement =  eElement.getElementsByTagName(columnName).item(0).getTextContent();
+                        if(cElement.equals(columnValue)) {
+                            eElement.getElementsByTagName(columnName).item(0).setTextContent(newColumnValue);
+                        }
+                    }
+                }
+            }
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File(openedFile));
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            transformer.transform(source, result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

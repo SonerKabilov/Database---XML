@@ -5,11 +5,11 @@
     <configElement type="age">Integer</configElement>
   </config>
 <student>
-    <name>Peter</name>
-    <age>25</age>
-  </student>
-<student>
     <name>Anna</name>
+    <age>20</age>
+   </student>
+<student>
+    <name>Peter</name>
     <age>20</age>
   </student>
 <student>
