@@ -3,7 +3,6 @@ package com.company;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -48,7 +47,7 @@ public class FileOperations {
                 do {
                     System.out.println("Enter xml column:");
                     String enterElement = sc.nextLine();
-                    System.out.println("Enter the data type of the column:");
+                    System.out.println("Enter the data type of the column (String/Integer/Double):");
                     String enterValue = sc.nextLine();
                     Element elementName = doc.createElement("configElement");
                     Attr attrType = doc.createAttribute("type");
@@ -66,6 +65,7 @@ public class FileOperations {
                     } while (!(confirmValue.equalsIgnoreCase("yes") || confirmValue.equalsIgnoreCase("no")));
                 } while (confirmValue.equalsIgnoreCase("yes"));
 
+                //writing the content into the xml file
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();
                 DOMSource source = new DOMSource(doc);
