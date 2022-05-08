@@ -9,11 +9,13 @@ public class Menu {
         Scanner sc = new Scanner(System.in);
         FileOperations fileOperations = new FileOperations();
         TableOperations tableOperations = new TableOperations();
+        CatalogOperations catalogOperations = new CatalogOperations();
 
         do {
             System.out.println("****Menu****");
             System.out.println("open <file name>");
             System.out.println("close");
+            System.out.println("import <filename>");
             System.out.println("insert <filename>");
             System.out.println("describe <filename>");
             System.out.println("delete <table name> <search column> <search value>");
@@ -29,6 +31,9 @@ public class Menu {
             switch (arrOfString[0]) {
                 case "open":
                     fileOperations.openFile(arrOfString[1]);
+                    break;
+                case "import":
+                    catalogOperations.importTable(arrOfString[1]);
                     break;
                 case "insert":
                     tableOperations.insertNode(arrOfString[1]);
