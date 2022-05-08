@@ -16,6 +16,7 @@ public class Menu {
             System.out.println("open <file name>");
             System.out.println("close");
             System.out.println("import <filename>");
+            System.out.println("showtables");
             System.out.println("insert <filename>");
             System.out.println("describe <filename>");
             System.out.println("delete <table name> <search column> <search value>");
@@ -34,6 +35,9 @@ public class Menu {
                     break;
                 case "import":
                     catalogOperations.importTable(arrOfString[1]);
+                    break;
+                case "showtables":
+                    catalogOperations.showTables();
                     break;
                 case "insert":
                     tableOperations.insertNode(arrOfString[1]);

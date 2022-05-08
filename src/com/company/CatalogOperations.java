@@ -70,4 +70,35 @@ public class CatalogOperations {
             System.out.println("File does not exist!\n");
         }
     }
+
+    public void showTables() {
+        File xmlFile = new File("catalog.xml");
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(xmlFile);
+            doc.getDocumentElement().normalize();
+            NodeList nList = doc.getElementsByTagName("table");
+            System.out.println("Tables in the database:");
+
+            for (int i = 0; i < nList.getLength(); i++) {
+                Node nNode = nList.item(i);
+                if (nNode.getNodeType() == nNode.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    NodeList configElement = eElement.getElementsByTagName("fileName");
+                    for(int j = 0; j < configElement.getLength(); j++) {
+                        Node node1 = configElement.item(j);
+                        if (node1.getNodeType() == node1.ELEMENT_NODE) {
+                            Element el = (Element) node1;
+                            System.out.println("- " + el.getTextContent());
+                        }
+                    }
+                }
+            }
+            System.out.println();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
