@@ -10,26 +10,18 @@ public class Menu {
         FileOperations fileOperations = new FileOperations();
         TableOperations tableOperations = new TableOperations();
         CatalogOperations catalogOperations = new CatalogOperations();
+        PrintMenuOptions menuOptions = new PrintMenuOptions();
 
         do {
-            System.out.println("****Menu****");
-            System.out.println("open <file name>");
-            System.out.println("close");
-            System.out.println("import <filename>");
-            System.out.println("showtables");
-            System.out.println("insert <filename>");
-            System.out.println("describe <filename>");
-            System.out.println("delete <table name> <search column> <search value>");
-            System.out.println("update <table name> <search column> <search value> <target value>");
-            System.out.println("select <table name> <search column> <search value>");
-            System.out.println("count <table name> <search column> <search value>");
-            System.out.println("exit");
-            System.out.println("\nChoose a command:");
+            System.out.println("\nChoose a command /type 'help' for more information/:");
 
             menuChoice = sc.nextLine();
             String[] arrOfString = menuChoice.split(" ");
 
             switch (arrOfString[0]) {
+                case "help":
+                    menuOptions.help();
+                    break;
                 case "open":
                     fileOperations.openFile(arrOfString[1]);
                     break;
