@@ -251,4 +251,35 @@ public class TableOperations {
             e.printStackTrace();
         }
     }
+
+    public void count(String openedFile, String columnName, String columnValue) {
+        File xmlFile = new File(openedFile);
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        int count = 0;
+
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(xmlFile);
+            doc.getDocumentElement().normalize();
+
+            Element root = doc.getDocumentElement();
+            NodeList childNodes = root.getChildNodes();
+
+            for(int i = 0; i < childNodes.getLength(); i++) {
+                Node node = childNodes.item(i);
+                if(!node.getNodeName().equals("config")) {
+                    if (node.getNodeType() == Node.ELEMENT_NODE) {
+                        Element eElement = (Element) node;
+                        String cElement =  eElement.getElementsByTagName(columnName).item(0).getTextContent();
+                        if(cElement.equals(columnValue)) {
+                            count++;
+                        }
+                    }
+                }
+            }
+            System.out.println("Nodes with value " + columnValue + " in column " + columnName + ": " + count + "\n");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
