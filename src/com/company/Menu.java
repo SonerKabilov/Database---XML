@@ -18,6 +18,7 @@ public class Menu {
             System.out.println("describe <filename>");
             System.out.println("delete <table name> <search column> <search value>");
             System.out.println("update <table name> <search column> <search value> <target value>");
+            System.out.println("select <table name> <search column> <search value>");
             System.out.println("exit");
             System.out.println("\nChoose a command:");
 
@@ -40,6 +41,8 @@ public class Menu {
                 case "update":
                     tableOperations.updateColumn(arrOfString[1], arrOfString[2], arrOfString[3], arrOfString[4]);
                     break;
+                case "select":
+                    tableOperations.selectNode(arrOfString[1],arrOfString[2],arrOfString[3]);
                 case "exit":
                     break;
                 default:

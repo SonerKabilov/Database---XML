@@ -204,4 +204,51 @@ public class TableOperations {
             e.printStackTrace();
         }
     }
+
+    public void selectNode(String openedFile, String columnName, String columnValue) {
+        File xmlFile = new File(openedFile);
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(xmlFile);
+            doc.getDocumentElement().normalize();
+
+            Element root = doc.getDocumentElement();
+            NodeList childNodes = root.getChildNodes();
+
+            for(int i = 0; i < childNodes.getLength(); i++) {
+                Node node = childNodes.item(i);
+                if(!node.getNodeName().equals("config")) {
+                    if (node.getNodeType() == Node.ELEMENT_NODE) {
+                        Element eElement = (Element) node;
+                        String cElement =  eElement.getElementsByTagName(columnName).item(0).getTextContent();
+                        if(cElement.equals(columnValue)) {
+                            NodeList configList = doc.getElementsByTagName("config");
+
+                            for (int j = 0; j < configList.getLength(); j++) {
+                                Node configNode = configList.item(j);
+                                if (configNode.getNodeType() == configNode.ELEMENT_NODE) {
+                                    Element conElement = (Element) configNode;
+                                    NodeList configElement = conElement.getElementsByTagName("configElement");
+                                    for(int k = 0; k < configElement.getLength(); k++) {
+                                        Node node1 = configElement.item(k);
+                                        if (node1.getNodeType() == node1.ELEMENT_NODE) {
+                                            Element el = (Element) node1;
+                                            System.out.println(el.getAttribute("type") + ": " +
+                                                    eElement.getElementsByTagName(el.getAttribute("type")).item(0).getTextContent());
+                                        }
+                                    }
+                                    System.out.println();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            System.out.println();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
