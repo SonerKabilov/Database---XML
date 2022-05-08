@@ -15,7 +15,8 @@ import java.util.Scanner;
 public class TableOperations {
 
     public void insertNode(String openedFile){
-        File xmlFile = new File(openedFile);
+        String filePath = openedFile + ".xml";
+        File xmlFile = new File(filePath);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         Scanner sc = new Scanner(System.in);
 
@@ -101,7 +102,8 @@ public class TableOperations {
     }
 
     public void describe(String openedFile) {
-        File xmlFile = new File(openedFile);
+        String filePath = openedFile + ".xml";
+        File xmlFile = new File(filePath);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
         try {
@@ -132,7 +134,8 @@ public class TableOperations {
     }
 
     public void deleteColumn(String openedFile, String columnName, String columnValue) {
-        File xmlFile = new File(openedFile);
+        String filePath = openedFile + ".xml";
+        File xmlFile = new File(filePath);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
         try {
@@ -159,7 +162,7 @@ public class TableOperations {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File(openedFile));
+            StreamResult result = new StreamResult(new File(filePath));
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
             transformer.transform(source, result);
@@ -169,7 +172,8 @@ public class TableOperations {
     }
 
     public void updateColumn(String openedFile, String columnName, String columnValue, String newColumnValue) {
-        File xmlFile = new File(openedFile);
+        String filePath = openedFile + ".xml";
+        File xmlFile = new File(filePath);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
         try {
@@ -196,7 +200,7 @@ public class TableOperations {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File(openedFile));
+            StreamResult result = new StreamResult(new File(filePath));
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
             transformer.transform(source, result);
@@ -206,7 +210,8 @@ public class TableOperations {
     }
 
     public void selectNode(String openedFile, String columnName, String columnValue) {
-        File xmlFile = new File(openedFile);
+        String filePath = openedFile + ".xml";
+        File xmlFile = new File(filePath);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
         try {
@@ -253,7 +258,8 @@ public class TableOperations {
     }
 
     public void count(String openedFile, String columnName, String columnValue) {
-        File xmlFile = new File(openedFile);
+        String filePath = openedFile + ".xml";
+        File xmlFile = new File(filePath);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         int count = 0;
 
