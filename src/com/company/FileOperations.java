@@ -15,8 +15,10 @@ import java.util.Scanner;
 
 public class FileOperations {
 
-    public File openFile(String pathName) {
-        File file = new File(pathName);
+    public File openFile(String fileName) {
+        String filePath = fileName + ".xml";
+        File file = new File(filePath);
+
         //if the file does not exist it creates a new file with the given name
         if(!file.exists()) {
             Scanner sc = new Scanner(System.in);
@@ -26,8 +28,7 @@ public class FileOperations {
                 Document doc = builder.newDocument();
 
                 //the root element equals the name of the file without the extension (.xml)
-                String fileNameWithoutExtension = pathName.substring(0, pathName.lastIndexOf('.'));
-                Element rootElement = doc.createElement(fileNameWithoutExtension);
+                Element rootElement = doc.createElement(fileName);
                 doc.appendChild(rootElement);
 
                 //creating a new file requires creating a database template
@@ -67,7 +68,7 @@ public class FileOperations {
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();
                 DOMSource source = new DOMSource(doc);
-                StreamResult result = new StreamResult(new File(pathName));
+                StreamResult result = new StreamResult(new File(filePath));
                 //formatting the xml file so every tag is written in a new line
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");
                 transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
