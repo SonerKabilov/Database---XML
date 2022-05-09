@@ -13,6 +13,33 @@ import java.io.File;
 
 public class CatalogOperations {
 
+    public boolean queryCatalog(String filePath) {
+        File xmlFile = new File("catalog.xml");
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(xmlFile);
+
+            Element root = doc.getDocumentElement();
+            NodeList childNodes = root.getChildNodes();
+
+            for(int i = 0; i < childNodes.getLength(); i++) {
+                Node node = childNodes.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) node;
+                    String cElement =  eElement.getElementsByTagName("filePath").item(0).getTextContent();
+                    if(cElement.equals(filePath)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public void importTable(String openedFile) {
         String filePath = openedFile + ".xml";
         File importedFile = new File(filePath);
@@ -25,23 +52,7 @@ public class CatalogOperations {
                 Document doc = builder.parse(xmlFile);
                 Element documentElement = doc.getDocumentElement();
 
-                Element root = doc.getDocumentElement();
-                NodeList childNodes = root.getChildNodes();
-                boolean tableInDatabase = false;
-
-                for(int i = 0; i < childNodes.getLength(); i++) {
-                    Node node = childNodes.item(i);
-                    if (node.getNodeType() == Node.ELEMENT_NODE) {
-                        Element eElement = (Element) node;
-                        String cElement =  eElement.getElementsByTagName("filePath").item(0).getTextContent();
-                        if(cElement.equals(filePath)) {
-                            tableInDatabase = true;
-                            System.out.println(filePath + " already in the database\n");
-                        }
-                    }
-                }
-
-                if(!tableInDatabase) {
+                if(!queryCatalog(filePath)) {
                     Element textNode = doc.createElement("fileName");
                     textNode.setTextContent(openedFile);
                     Element textNode1 = doc.createElement("filePath");
@@ -61,6 +72,9 @@ public class CatalogOperations {
                     transformerFactory.transform(source, result);
 
                     System.out.println("Successfully imported " + filePath + "\n");
+                }
+                else {
+                    System.out.println("File already in the database");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
