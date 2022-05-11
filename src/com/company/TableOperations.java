@@ -37,9 +37,9 @@ public class TableOperations {
                             Node node1 = configElement.item(j);
                             if (node1.getNodeType() == node1.ELEMENT_NODE) {
                                 Element el = (Element) node1;
-                                Element textNode = doc.createElement(el.getAttribute("type"));
+                                Element textNode = doc.createElement(el.getAttribute("columnName"));
                                 int flag;
-                                System.out.println(el.getAttribute("type") +" ("+ el.getTextContent() +"): ");
+                                System.out.println(el.getAttribute("columnName") +" ("+ el.getTextContent() +"): ");
 
                                 if(el.getTextContent().equalsIgnoreCase("string")) {
                                     String xmlText = sc.nextLine();
@@ -127,7 +127,7 @@ public class TableOperations {
                             Node node1 = configElement.item(j);
                             if (node1.getNodeType() == node1.ELEMENT_NODE) {
                                 Element el = (Element) node1;
-                                System.out.println(el.getAttribute("type") + ": " + el.getTextContent());
+                                System.out.println(el.getAttribute("columnName") + ": " + el.getTextContent());
                             }
                         }
                     }
@@ -259,8 +259,8 @@ public class TableOperations {
                                             Node node1 = configElement.item(k);
                                             if (node1.getNodeType() == node1.ELEMENT_NODE) {
                                                 Element el = (Element) node1;
-                                                System.out.println(el.getAttribute("type") + ": " +
-                                                        eElement.getElementsByTagName(el.getAttribute("type")).item(0).getTextContent());
+                                                System.out.println(el.getAttribute("columnName") + ": " +
+                                                        eElement.getElementsByTagName(el.getAttribute("columnName")).item(0).getTextContent());
                                             }
                                         }
                                         System.out.println();
@@ -270,7 +270,6 @@ public class TableOperations {
                         }
                     }
                 }
-                System.out.println();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -342,7 +341,7 @@ public class TableOperations {
                             Node node1 = configElement.item(j);
                             if (node1.getNodeType() == node1.ELEMENT_NODE) {
                                 Element el = (Element) node1;
-                                if(el.getAttribute("type").equalsIgnoreCase(columnName)) {
+                                if(el.getAttribute("columnName").equalsIgnoreCase(columnName)) {
                                     flag = 1;
                                     break;
                                 }
@@ -376,7 +375,7 @@ public class TableOperations {
                                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                                     //Create the new column in the config node and assign its data type
                                     Element elem = doc.createElement("configElement");
-                                    Attr attr = doc.createAttribute("type");
+                                    Attr attr = doc.createAttribute("columnName");
                                     attr.setValue(columnName);
                                     elem.setAttributeNode(attr);
                                     elem.setTextContent(columnType);
