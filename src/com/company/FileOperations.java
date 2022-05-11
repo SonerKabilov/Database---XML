@@ -49,7 +49,7 @@ public class FileOperations {
                     System.out.println("Enter the data type of the column (String/Integer/Double):");
                     String enterValue = sc.nextLine();
                     Element elementName = doc.createElement("configElement");
-                    Attr attrType = doc.createAttribute("type");
+                    Attr attrType = doc.createAttribute("columnName");
                     attrType.setValue(enterElement);
                     elementName.setAttributeNode(attrType);
                     elementName.appendChild(doc.createTextNode(enterValue));
@@ -78,7 +78,7 @@ public class FileOperations {
             }
         }
 
-        System.out.println("Successfully opened " + file + "\n");
+        System.out.println("Successfully opened " + file);
         return file;
     }
 }

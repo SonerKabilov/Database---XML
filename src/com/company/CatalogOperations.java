@@ -71,7 +71,7 @@ public class CatalogOperations {
                     Result result = new StreamResult(xmlFile);
                     transformerFactory.transform(source, result);
 
-                    System.out.println("Successfully imported " + filePath + "\n");
+                    System.out.println("Successfully imported " + filePath);
                 }
                 else {
                     System.out.println("File already in the database");
@@ -81,7 +81,7 @@ public class CatalogOperations {
             }
         }
         else {
-            System.out.println("File does not exist!\n");
+            System.out.println("File does not exist!");
         }
     }
 

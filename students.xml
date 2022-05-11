@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <students>
   <config elementTag="student">
-    <configElement type="name">String</configElement>
-    <configElement type="age">Integer</configElement>
-    <configElement type="school">String</configElement>
+    <configElement columnName="name">String</configElement>
+    <configElement columnName="age">Integer</configElement>
+    <configElement columnName="school">String</configElement>
   </config>
 <student>
     <name>Anna</name>
