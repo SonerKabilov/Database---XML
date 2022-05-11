@@ -1,9 +1,7 @@
 package com.company;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.*;
@@ -310,6 +308,104 @@ public class TableOperations {
                     }
                 }
                 System.out.println("Nodes with value " + columnValue + " in column " + columnName + ": " + count + "\n");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("File not in the database");
+        }
+    }
+
+    public void addColumn(String openedFile, String columnName, String columnType){
+        String filePath = openedFile + ".xml";
+
+        if(catalogOperations.queryCatalog(filePath)) {
+            File xmlFile = new File(filePath);
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+            try {
+                DocumentBuilder builder = factory.newDocumentBuilder();
+                Document doc = builder.parse(xmlFile);
+                doc.getDocumentElement().normalize();
+
+                //check if column is already added to the table
+                int flag = 0;
+                NodeList nList = doc.getElementsByTagName("config");
+
+                for (int i = 0; i < nList.getLength(); i++) {
+                    Node nNode = nList.item(i);
+                    if (nNode.getNodeType() == nNode.ELEMENT_NODE) {
+                        Element eElement = (Element) nNode;
+                        NodeList configElement = eElement.getElementsByTagName("configElement");
+                        for(int j = 0; j < configElement.getLength(); j++) {
+                            Node node1 = configElement.item(j);
+                            if (node1.getNodeType() == node1.ELEMENT_NODE) {
+                                Element el = (Element) node1;
+                                if(el.getAttribute("type").equalsIgnoreCase(columnName)) {
+                                    flag = 1;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Element root = doc.getDocumentElement();
+                NodeList childNodes = root.getChildNodes();
+                if(flag==0) {
+                    boolean added = true;
+                    for (int i = 0; i < childNodes.getLength(); i++) {
+                        Node node = childNodes.item(i);
+
+                        //column type must be one of the three data types
+                        if (columnType.equalsIgnoreCase("String") ||
+                                columnType.equalsIgnoreCase("Integer") ||
+                                columnType.equalsIgnoreCase("Double")) {
+                            if (!node.getNodeName().equals("config")) {
+                                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                                    //Create the new column
+                                    Element elem = doc.createElement(columnName);
+                                    //the new column does not have a value in the already existing nodes
+                                    elem.setTextContent(" ");
+
+                                    //Add the column at the end of the parent node
+                                    node.insertBefore(elem, node.getLastChild());
+                                }
+                            } else {
+                                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                                    //Create the new column in the config node and assign its data type
+                                    Element elem = doc.createElement("configElement");
+                                    Attr attr = doc.createAttribute("type");
+                                    attr.setValue(columnName);
+                                    elem.setAttributeNode(attr);
+                                    elem.setTextContent(columnType);
+
+                                    //Add the column at the end of the config node
+                                    node.insertBefore(elem, node.getLastChild());
+                                }
+                            }
+                        } else {
+                            System.out.println("Invalid column type");
+                            added = false;
+                            break;
+                        }
+                    }
+                    if(added) {
+                        System.out.println("Column successfully added");
+                    }
+                }
+                else {
+                    System.out.println("Column already in the table");
+                }
+
+                TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                Transformer transformer = transformerFactory.newTransformer();
+                DOMSource source = new DOMSource(doc);
+                StreamResult result = new StreamResult(new File(filePath));
+                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+                transformer.transform(source, result);
             } catch (Exception e) {
                 e.printStackTrace();
             }

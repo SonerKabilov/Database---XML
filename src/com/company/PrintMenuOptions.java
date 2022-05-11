@@ -14,6 +14,7 @@ public class PrintMenuOptions {
         System.out.println("update <table name> <search column> <search value> <target value>\t\t/updates all <search column> in <table name>");
         System.out.println("select <table name> <search column> <search value>\t\t/selects all nodes in <tablename> by given <search column> and <search value>/");
         System.out.println("count <table name> <search column> <search value>\t\t/counts all nodes in <tablename> by given <search column> and <search value>/");
+        System.out.println("addcolumn <table name> <column name> <column type>\t\t/adds a new column in all existing nodes/");
         System.out.println("help\t\t/prints this information/");
         System.out.println("exit\t\t/exits the program");
     }

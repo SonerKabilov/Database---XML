@@ -3,17 +3,21 @@
   <config elementTag="student">
     <configElement type="name">String</configElement>
     <configElement type="age">Integer</configElement>
+    <configElement type="school">String</configElement>
   </config>
 <student>
     <name>Anna</name>
     <age>20</age>
+    <school> </school>
    </student>
 <student>
     <name>Peter</name>
     <age>20</age>
+    <school> </school>
   </student>
 <student>
     <name>George</name>
     <age>30</age>
+    <school> </school>
   </student>
 </students>

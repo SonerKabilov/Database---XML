@@ -49,6 +49,9 @@ public class Menu {
                 case "count":
                     tableOperations.count(arrOfString[1],arrOfString[2],arrOfString[3]);
                     break;
+                case "addcolumn":
+                    tableOperations.addColumn(arrOfString[1],arrOfString[2],arrOfString[3]);
+                    break;
                 case "exit":
                     break;
                 default:
