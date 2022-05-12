@@ -72,15 +72,13 @@ public class CatalogOperations {
                     transformerFactory.transform(source, result);
 
                     System.out.println("Successfully imported " + filePath);
-                }
-                else {
+                } else {
                     System.out.println("File already in the database");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             System.out.println("File does not exist!");
         }
     }
