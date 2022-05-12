@@ -15,7 +15,8 @@ public class TableOperations {
 
     public void insertNode(String openedFile){
         String filePath = openedFile + ".xml";
-        if(catalogOperations.queryCatalog(filePath)) {
+
+        if (catalogOperations.queryCatalog(filePath)) {
             File xmlFile = new File(filePath);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             Scanner sc = new Scanner(System.in);
@@ -23,30 +24,31 @@ public class TableOperations {
             try {
                 DocumentBuilder builder = factory.newDocumentBuilder();
                 Document doc = builder.parse(xmlFile);
-
                 Element documentElement = doc.getDocumentElement();
                 NodeList nList = doc.getElementsByTagName("config");
                 Element nodeElement = doc.createElement(nList.item(0).getAttributes().item(0).getTextContent());
 
                 for (int i = 0; i < nList.getLength(); i++) {
                     Node nNode = nList.item(i);
+
                     if (nNode.getNodeType() == nNode.ELEMENT_NODE) {
                         Element eElement = (Element) nNode;
                         NodeList configElement = eElement.getElementsByTagName("configElement");
                         for(int j = 0; j < configElement.getLength(); j++) {
                             Node node1 = configElement.item(j);
+
                             if (node1.getNodeType() == node1.ELEMENT_NODE) {
                                 Element el = (Element) node1;
                                 Element textNode = doc.createElement(el.getAttribute("columnName"));
                                 int flag;
                                 System.out.println(el.getAttribute("columnName") +" ("+ el.getTextContent() +"): ");
 
-                                if(el.getTextContent().equalsIgnoreCase("string")) {
+                                if (el.getTextContent().equalsIgnoreCase("string")) {
                                     String xmlText = sc.nextLine();
                                     textNode.setTextContent(xmlText);
                                     nodeElement.appendChild(textNode);
-                                } else if(el.getTextContent().equalsIgnoreCase("integer")) {
-                                    do{
+                                } else if (el.getTextContent().equalsIgnoreCase("integer")) {
+                                    do {
                                         String xmlText = sc.nextLine();
                                         flag = 0;
                                         try {
@@ -55,12 +57,12 @@ public class TableOperations {
                                             flag = 1;
                                             System.out.println(xmlText + " is not a valid integer. Try again");
                                         }
-                                        if(flag == 0) {
+                                        if (flag == 0) {
                                             textNode.setTextContent(xmlText);
                                             nodeElement.appendChild(textNode);
                                         }
                                     } while (flag == 1);
-                                } else if(el.getTextContent().equalsIgnoreCase("double")) {
+                                } else if (el.getTextContent().equalsIgnoreCase("double")) {
                                     do {
                                         String xmlText = sc.nextLine();
                                         flag = 0;
@@ -70,7 +72,7 @@ public class TableOperations {
                                             flag = 1;
                                             System.out.println(xmlText + " is not a valid double. Try again");
                                         }
-                                        if(flag == 0) {
+                                        if (flag == 0) {
                                             textNode.setTextContent(xmlText);
                                             nodeElement.appendChild(textNode);
                                         }
@@ -104,6 +106,7 @@ public class TableOperations {
 
     public void describe(String openedFile) {
         String filePath = openedFile + ".xml";
+
         if(catalogOperations.queryCatalog(filePath)) {
             File xmlFile = new File(filePath);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -113,9 +116,9 @@ public class TableOperations {
                 Document doc = builder.parse(xmlFile);
                 doc.getDocumentElement().normalize();
                 NodeList nList = doc.getElementsByTagName("config");
-
                 Node nNode = nList.item(0);
                 System.out.println(nNode.getNodeName());
+
                 if (nNode.getNodeType() == nNode.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
                     NodeList configElement = eElement.getElementsByTagName("configElement");
@@ -137,7 +140,8 @@ public class TableOperations {
 
     public void deleteColumn(String openedFile, String columnName, String columnValue) {
         String filePath = openedFile + ".xml";
-        if(catalogOperations.queryCatalog(filePath)) {
+
+        if (catalogOperations.queryCatalog(filePath)) {
             File xmlFile = new File(filePath);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
@@ -145,19 +149,18 @@ public class TableOperations {
                 DocumentBuilder builder = factory.newDocumentBuilder();
                 Document doc = builder.parse(xmlFile);
                 doc.getDocumentElement().normalize();
-
                 Element root = doc.getDocumentElement();
                 NodeList childNodes = root.getChildNodes();
 
                 boolean isDeleted = false;
 
-                for(int i = 0; i < childNodes.getLength(); i++) {
+                for (int i = 0; i < childNodes.getLength(); i++) {
                     Node node = childNodes.item(i);
-                    if(!node.getNodeName().equals("config")) {
+                    if (!node.getNodeName().equals("config")) {
                         if (node.getNodeType() == Node.ELEMENT_NODE) {
                             Element eElement = (Element) node;
                             String cElement =  eElement.getElementsByTagName(columnName).item(0).getTextContent();
-                            if(cElement.equals(columnValue)) {
+                            if (cElement.equals(columnValue)) {
                                 root.removeChild(node);
                                 isDeleted = true;
                             }
@@ -165,7 +168,7 @@ public class TableOperations {
                     }
                 }
 
-                if(isDeleted) {
+                if (isDeleted) {
                     System.out.println("Deleted all columns '" + columnName + "' with value " + columnValue);
                 } else {
                     System.out.println("Columns '" + columnName + "' with value " + columnValue + " not found");
@@ -188,7 +191,8 @@ public class TableOperations {
 
     public void updateColumn(String openedFile, String columnName, String columnValue, String newColumnValue) {
         String filePath = openedFile + ".xml";
-        if(catalogOperations.queryCatalog(filePath)) {
+
+        if (catalogOperations.queryCatalog(filePath)) {
             File xmlFile = new File(filePath);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
@@ -196,19 +200,18 @@ public class TableOperations {
                 DocumentBuilder builder = factory.newDocumentBuilder();
                 Document doc = builder.parse(xmlFile);
                 doc.getDocumentElement().normalize();
-
                 Element root = doc.getDocumentElement();
                 NodeList childNodes = root.getChildNodes();
 
                 boolean isUpdated = false;
 
-                for(int i = 0; i < childNodes.getLength(); i++) {
+                for (int i = 0; i < childNodes.getLength(); i++) {
                     Node node = childNodes.item(i);
-                    if(!node.getNodeName().equals("config")) {
+                    if (!node.getNodeName().equals("config")) {
                         if (node.getNodeType() == Node.ELEMENT_NODE) {
                             Element eElement = (Element) node;
                             String cElement =  eElement.getElementsByTagName(columnName).item(0).getTextContent();
-                            if(cElement.equals(columnValue)) {
+                            if (cElement.equals(columnValue)) {
                                 eElement.getElementsByTagName(columnName).item(0).setTextContent(newColumnValue);
                                 isUpdated = true;
                             }
@@ -216,7 +219,7 @@ public class TableOperations {
                     }
                 }
 
-                if(isUpdated) {
+                if (isUpdated) {
                     System.out.println("Column '" + columnName + "' successfully updated with value " + newColumnValue);
                 } else {
                     System.out.println("Invalid column name or value");
@@ -239,7 +242,8 @@ public class TableOperations {
 
     public void selectNode(String openedFile, String columnName, String columnValue) {
         String filePath = openedFile + ".xml";
-        if(catalogOperations.queryCatalog(filePath)) {
+
+        if (catalogOperations.queryCatalog(filePath)) {
             File xmlFile = new File(filePath);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
@@ -247,24 +251,25 @@ public class TableOperations {
                 DocumentBuilder builder = factory.newDocumentBuilder();
                 Document doc = builder.parse(xmlFile);
                 doc.getDocumentElement().normalize();
-
                 Element root = doc.getDocumentElement();
                 NodeList childNodes = root.getChildNodes();
 
-                for(int i = 0; i < childNodes.getLength(); i++) {
+                for (int i = 0; i < childNodes.getLength(); i++) {
                     Node node = childNodes.item(i);
-                    if(!node.getNodeName().equals("config")) {
+
+                    if (!node.getNodeName().equals("config")) {
                         if (node.getNodeType() == Node.ELEMENT_NODE) {
                             Element eElement = (Element) node;
                             String cElement =  eElement.getElementsByTagName(columnName).item(0).getTextContent();
-                            if(cElement.equals(columnValue)) {
-                                NodeList configList = doc.getElementsByTagName("config");
 
+                            if (cElement.equals(columnValue)) {
+                                NodeList configList = doc.getElementsByTagName("config");
                                 Node configNode = configList.item(0);
+
                                 if (configNode.getNodeType() == configNode.ELEMENT_NODE) {
                                     Element conElement = (Element) configNode;
                                     NodeList configElement = conElement.getElementsByTagName("configElement");
-                                    for(int k = 0; k < configElement.getLength(); k++) {
+                                    for (int k = 0; k < configElement.getLength(); k++) {
                                         Node node1 = configElement.item(k);
                                         if (node1.getNodeType() == node1.ELEMENT_NODE) {
                                             Element el = (Element) node1;
@@ -288,7 +293,8 @@ public class TableOperations {
 
     public void count(String openedFile, String columnName, String columnValue) {
         String filePath = openedFile + ".xml";
-        if(catalogOperations.queryCatalog(filePath)) {
+
+        if (catalogOperations.queryCatalog(filePath)) {
             File xmlFile = new File(filePath);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             int count = 0;
@@ -297,17 +303,16 @@ public class TableOperations {
                 DocumentBuilder builder = factory.newDocumentBuilder();
                 Document doc = builder.parse(xmlFile);
                 doc.getDocumentElement().normalize();
-
                 Element root = doc.getDocumentElement();
                 NodeList childNodes = root.getChildNodes();
 
-                for(int i = 0; i < childNodes.getLength(); i++) {
+                for (int i = 0; i < childNodes.getLength(); i++) {
                     Node node = childNodes.item(i);
-                    if(!node.getNodeName().equals("config")) {
+                    if (!node.getNodeName().equals("config")) {
                         if (node.getNodeType() == Node.ELEMENT_NODE) {
                             Element eElement = (Element) node;
                             String cElement =  eElement.getElementsByTagName(columnName).item(0).getTextContent();
-                            if(cElement.equals(columnValue)) {
+                            if (cElement.equals(columnValue)) {
                                 count++;
                             }
                         }
@@ -325,7 +330,7 @@ public class TableOperations {
     public void addColumn(String openedFile, String columnName, String columnType){
         String filePath = openedFile + ".xml";
 
-        if(catalogOperations.queryCatalog(filePath)) {
+        if (catalogOperations.queryCatalog(filePath)) {
             File xmlFile = new File(filePath);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
@@ -342,11 +347,11 @@ public class TableOperations {
                 if (nNode.getNodeType() == nNode.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
                     NodeList configElement = eElement.getElementsByTagName("configElement");
-                    for(int j = 0; j < configElement.getLength(); j++) {
+                    for (int j = 0; j < configElement.getLength(); j++) {
                         Node node1 = configElement.item(j);
                         if (node1.getNodeType() == node1.ELEMENT_NODE) {
                             Element el = (Element) node1;
-                            if(el.getAttribute("columnName").equalsIgnoreCase(columnName)) {
+                            if (el.getAttribute("columnName").equalsIgnoreCase(columnName)) {
                                 flag = 1;
                                 break;
                             }
@@ -356,7 +361,8 @@ public class TableOperations {
 
                 Element root = doc.getDocumentElement();
                 NodeList childNodes = root.getChildNodes();
-                if(flag==0) {
+
+                if (flag==0) {
                     boolean isAdded = true;
                     for (int i = 0; i < childNodes.getLength(); i++) {
                         Node node = childNodes.item(i);
@@ -394,7 +400,7 @@ public class TableOperations {
                             break;
                         }
                     }
-                    if(isAdded) {
+                    if (isAdded) {
                         System.out.println("Column successfully added");
                     }
                 } else {
@@ -408,6 +414,85 @@ public class TableOperations {
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");
                 transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
                 transformer.transform(source, result);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("File not in the database");
+        }
+    }
+
+    public void print(String openedFile){
+        String filePath = openedFile + ".xml";
+
+        if (catalogOperations.queryCatalog(filePath)) {
+            File xmlFile = new File(filePath);
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+            try {
+                DocumentBuilder builder = factory.newDocumentBuilder();
+                Document doc = builder.parse(xmlFile);
+                doc.getDocumentElement().normalize();
+                String mainTag = doc.getElementsByTagName("config").item(0).getAttributes().item(0).getTextContent();
+                NodeList childNodes = doc.getElementsByTagName(mainTag);
+
+                int i = 0;
+                String pageOption;
+                Scanner sc = new Scanner(System.in);
+
+                do {
+                    Node node = childNodes.item(i);
+                    System.out.println("page " + (i+1) + "/" + childNodes.getLength());
+                    System.out.println("----------------------");
+
+                    if (node.getNodeType() == Node.ELEMENT_NODE) {
+                        Element eElement = (Element) node;
+                        NodeList configList = doc.getElementsByTagName("config");
+                        Node configNode = configList.item(0);
+                        Element conElement = (Element) configNode;
+                        NodeList configElement = conElement.getElementsByTagName("configElement");
+                        for (int j = 0; j < configElement.getLength(); j++) {
+                            Node node1 = configElement.item(j);
+                            if (node1.getNodeType() == node1.ELEMENT_NODE) {
+                                Element el = (Element) node1;
+                                System.out.println(el.getAttribute("columnName") + ": " +
+                                        eElement.getElementsByTagName(el.getAttribute("columnName")).item(0).getTextContent());
+                            }
+                        }
+                    }
+
+                    System.out.println("----------------------");
+                    if (i > 0 && i < childNodes.getLength()) {
+                        System.out.println("next | previous | exit");
+                    } else if (i==0) {
+                        System.out.println("next | exit");
+                    } else {
+                        System.out.println("previous | exit");
+                    }
+
+                    pageOption = sc.nextLine();
+                    switch (pageOption) {
+                        case "next":
+                            if (i < childNodes.getLength()-1) {
+                                i++;
+                            } else {
+                                System.out.println("This is the last element in the table");
+                            }
+                            break;
+                        case "previous":
+                            if (i > 0) {
+                                i--;
+                            } else {
+                                System.out.println("This is the first element in the table");
+                            }
+                            break;
+                        case "exit":
+                            System.out.println("Closing print method");
+                            break;
+                        default:
+                            System.out.println("Invalid command");
+                    }
+                } while (!pageOption.equalsIgnoreCase("exit"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
