@@ -88,6 +88,8 @@ public class TableOperations {
                 documentElement.appendChild(nodeElement);
                 doc.replaceChild(documentElement, documentElement);
 
+                System.out.println("New node added to the table");
+
                 //writing the content into the xml file
                 Transformer transformerFactory = TransformerFactory.newInstance().newTransformer();
                 transformerFactory.setOutputProperty(OutputKeys.METHOD, "xml");
@@ -155,6 +157,8 @@ public class TableOperations {
                 Element root = doc.getDocumentElement();
                 NodeList childNodes = root.getChildNodes();
 
+                boolean isDeleted = false;
+
                 for(int i = 0; i < childNodes.getLength(); i++) {
                     Node node = childNodes.item(i);
                     if(!node.getNodeName().equals("config")) {
@@ -163,9 +167,16 @@ public class TableOperations {
                             String cElement =  eElement.getElementsByTagName(columnName).item(0).getTextContent();
                             if(cElement.equals(columnValue)) {
                                 root.removeChild(node);
+                                isDeleted = true;
                             }
                         }
                     }
+                }
+
+                if(isDeleted) {
+                    System.out.println("Deleted all columns '" + columnName + "' with value " + columnValue);
+                } else {
+                    System.out.println("Columns '" + columnName + "' with value " + columnValue + " not found");
                 }
 
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -198,6 +209,8 @@ public class TableOperations {
                 Element root = doc.getDocumentElement();
                 NodeList childNodes = root.getChildNodes();
 
+                boolean isUpdated = false;
+
                 for(int i = 0; i < childNodes.getLength(); i++) {
                     Node node = childNodes.item(i);
                     if(!node.getNodeName().equals("config")) {
@@ -206,9 +219,16 @@ public class TableOperations {
                             String cElement =  eElement.getElementsByTagName(columnName).item(0).getTextContent();
                             if(cElement.equals(columnValue)) {
                                 eElement.getElementsByTagName(columnName).item(0).setTextContent(newColumnValue);
+                                isUpdated = true;
                             }
                         }
                     }
+                }
+
+                if(isUpdated) {
+                    System.out.println("Column '" + columnName + "' successfully updated with value " + newColumnValue);
+                } else {
+                    System.out.println("Invalid column name or value");
                 }
 
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -353,7 +373,7 @@ public class TableOperations {
                 Element root = doc.getDocumentElement();
                 NodeList childNodes = root.getChildNodes();
                 if(flag==0) {
-                    boolean added = true;
+                    boolean isAdded = true;
                     for (int i = 0; i < childNodes.getLength(); i++) {
                         Node node = childNodes.item(i);
 
@@ -386,11 +406,11 @@ public class TableOperations {
                             }
                         } else {
                             System.out.println("Invalid column type");
-                            added = false;
+                            isAdded = false;
                             break;
                         }
                     }
-                    if(added) {
+                    if(isAdded) {
                         System.out.println("Column successfully added");
                     }
                 }
