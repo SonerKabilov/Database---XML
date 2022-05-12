@@ -45,15 +45,13 @@ public class TableOperations {
                                     String xmlText = sc.nextLine();
                                     textNode.setTextContent(xmlText);
                                     nodeElement.appendChild(textNode);
-                                }
-                                else if(el.getTextContent().equalsIgnoreCase("integer")) {
+                                } else if(el.getTextContent().equalsIgnoreCase("integer")) {
                                     do{
                                         String xmlText = sc.nextLine();
                                         flag = 0;
                                         try {
                                             Integer.parseInt(xmlText);
-                                        }
-                                        catch (NumberFormatException e) {
+                                        } catch (NumberFormatException e) {
                                             flag = 1;
                                             System.out.println(xmlText + " is not a valid integer. Try again");
                                         }
@@ -62,15 +60,13 @@ public class TableOperations {
                                             nodeElement.appendChild(textNode);
                                         }
                                     } while (flag == 1);
-                                }
-                                else if(el.getTextContent().equalsIgnoreCase("double")) {
-                                    do{
+                                } else if(el.getTextContent().equalsIgnoreCase("double")) {
+                                    do {
                                         String xmlText = sc.nextLine();
                                         flag = 0;
                                         try {
                                             Double.parseDouble(xmlText);
-                                        }
-                                        catch (NumberFormatException e) {
+                                        } catch (NumberFormatException e) {
                                             flag = 1;
                                             System.out.println(xmlText + " is not a valid double. Try again");
                                         }
@@ -101,8 +97,7 @@ public class TableOperations {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             System.out.println("File not in the database");
         }
     }
@@ -119,26 +114,23 @@ public class TableOperations {
                 doc.getDocumentElement().normalize();
                 NodeList nList = doc.getElementsByTagName("config");
 
-                for (int i = 0; i < nList.getLength(); i++) {
-                    Node nNode = nList.item(i);
-                    System.out.println(nNode.getNodeName());
-                    if (nNode.getNodeType() == nNode.ELEMENT_NODE) {
-                        Element eElement = (Element) nNode;
-                        NodeList configElement = eElement.getElementsByTagName("configElement");
-                        for(int j = 0; j < configElement.getLength(); j++) {
-                            Node node1 = configElement.item(j);
-                            if (node1.getNodeType() == node1.ELEMENT_NODE) {
-                                Element el = (Element) node1;
-                                System.out.println(el.getAttribute("columnName") + ": " + el.getTextContent());
-                            }
+                Node nNode = nList.item(0);
+                System.out.println(nNode.getNodeName());
+                if (nNode.getNodeType() == nNode.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    NodeList configElement = eElement.getElementsByTagName("configElement");
+                    for(int i = 0; i < configElement.getLength(); i++) {
+                        Node node1 = configElement.item(i);
+                        if (node1.getNodeType() == node1.ELEMENT_NODE) {
+                            Element el = (Element) node1;
+                            System.out.println(el.getAttribute("columnName") + ": " + el.getTextContent());
                         }
                     }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             System.out.println("File not in the database");
         }
     }
@@ -189,8 +181,7 @@ public class TableOperations {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             System.out.println("File not in the database");
         }
     }
@@ -241,8 +232,7 @@ public class TableOperations {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             System.out.println("File not in the database");
         }
     }
@@ -270,21 +260,19 @@ public class TableOperations {
                             if(cElement.equals(columnValue)) {
                                 NodeList configList = doc.getElementsByTagName("config");
 
-                                for (int j = 0; j < configList.getLength(); j++) {
-                                    Node configNode = configList.item(j);
-                                    if (configNode.getNodeType() == configNode.ELEMENT_NODE) {
-                                        Element conElement = (Element) configNode;
-                                        NodeList configElement = conElement.getElementsByTagName("configElement");
-                                        for(int k = 0; k < configElement.getLength(); k++) {
-                                            Node node1 = configElement.item(k);
-                                            if (node1.getNodeType() == node1.ELEMENT_NODE) {
-                                                Element el = (Element) node1;
-                                                System.out.println(el.getAttribute("columnName") + ": " +
-                                                        eElement.getElementsByTagName(el.getAttribute("columnName")).item(0).getTextContent());
-                                            }
+                                Node configNode = configList.item(0);
+                                if (configNode.getNodeType() == configNode.ELEMENT_NODE) {
+                                    Element conElement = (Element) configNode;
+                                    NodeList configElement = conElement.getElementsByTagName("configElement");
+                                    for(int k = 0; k < configElement.getLength(); k++) {
+                                        Node node1 = configElement.item(k);
+                                        if (node1.getNodeType() == node1.ELEMENT_NODE) {
+                                            Element el = (Element) node1;
+                                            System.out.println(el.getAttribute("columnName") + ": " +
+                                                    eElement.getElementsByTagName(el.getAttribute("columnName")).item(0).getTextContent());
                                         }
-                                        System.out.println();
                                     }
+                                    System.out.println();
                                 }
                             }
                         }
@@ -293,8 +281,7 @@ public class TableOperations {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             System.out.println("File not in the database");
         }
     }
@@ -330,8 +317,7 @@ public class TableOperations {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             System.out.println("File not in the database");
         }
     }
@@ -352,19 +338,17 @@ public class TableOperations {
                 int flag = 0;
                 NodeList nList = doc.getElementsByTagName("config");
 
-                for (int i = 0; i < nList.getLength(); i++) {
-                    Node nNode = nList.item(i);
-                    if (nNode.getNodeType() == nNode.ELEMENT_NODE) {
-                        Element eElement = (Element) nNode;
-                        NodeList configElement = eElement.getElementsByTagName("configElement");
-                        for(int j = 0; j < configElement.getLength(); j++) {
-                            Node node1 = configElement.item(j);
-                            if (node1.getNodeType() == node1.ELEMENT_NODE) {
-                                Element el = (Element) node1;
-                                if(el.getAttribute("columnName").equalsIgnoreCase(columnName)) {
-                                    flag = 1;
-                                    break;
-                                }
+                Node nNode = nList.item(0);
+                if (nNode.getNodeType() == nNode.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    NodeList configElement = eElement.getElementsByTagName("configElement");
+                    for(int j = 0; j < configElement.getLength(); j++) {
+                        Node node1 = configElement.item(j);
+                        if (node1.getNodeType() == node1.ELEMENT_NODE) {
+                            Element el = (Element) node1;
+                            if(el.getAttribute("columnName").equalsIgnoreCase(columnName)) {
+                                flag = 1;
+                                break;
                             }
                         }
                     }
@@ -413,8 +397,7 @@ public class TableOperations {
                     if(isAdded) {
                         System.out.println("Column successfully added");
                     }
-                }
-                else {
+                } else {
                     System.out.println("Column already in the table");
                 }
 
@@ -428,8 +411,7 @@ public class TableOperations {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             System.out.println("File not in the database");
         }
     }
