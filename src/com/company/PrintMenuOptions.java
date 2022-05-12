@@ -10,6 +10,7 @@ public class PrintMenuOptions {
         System.out.println("showtables\t\t/shows all tables in the database/");
         System.out.println("insert <filename>\t\t/inserts a new node to <filename>/");
         System.out.println("describe <filename>\t\t/prints information about <filename> columns and data types/");
+        System.out.println("print <filename>\t\t/prints <filename> nodes/");
         System.out.println("delete <table name> <search column> <search value>\t\t/deletes a node in <tablename> by given <search column> and <search value>/");
         System.out.println("update <table name> <search column> <search value> <target value>\t\t/updates all <search column> in <table name>");
         System.out.println("select <table name> <search column> <search value>\t\t/selects all nodes in <tablename> by given <search column> and <search value>/");
