@@ -108,6 +108,16 @@ public class FileOperations {
         }
     }
 
+    public void exitProgram() {
+        try {
+            Files.deleteIfExists(Paths.get("temp.xml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Exiting the program...");
+    }
+
     public File getFile() {
         return file;
     }
