@@ -40,10 +40,15 @@ public class CatalogOperations {
         return false;
     }
 
-    public void importTable(String openedFile) {
-        String filePath = openedFile + ".xml";
+    public void importTable(String fileName, File openedFile) {
+        String filePath = fileName + ".xml";
         File importedFile = new File(filePath);
         File xmlFile = new File("catalog.xml");
+
+        if(!filePath.equalsIgnoreCase(openedFile.getName())) {
+            throw new RuntimeException("Not equal");
+        }
+
         if(importedFile.exists()) {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
@@ -54,7 +59,7 @@ public class CatalogOperations {
 
                 if(!queryCatalog(filePath)) {
                     Element textNode = doc.createElement("fileName");
-                    textNode.setTextContent(openedFile);
+                    textNode.setTextContent(fileName);
                     Element textNode1 = doc.createElement("filePath");
                     textNode1.setTextContent(filePath);
                     Element nodeElement = doc.createElement("table");

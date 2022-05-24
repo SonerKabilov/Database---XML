@@ -15,9 +15,11 @@ import java.util.Scanner;
 
 public class FileOperations {
 
-    public File openFile(String fileName) {
+    private File file;
+
+    public void openFile(String fileName) {
         String filePath = fileName + ".xml";
-        File file = new File(filePath);
+        file = new File(filePath);
 
         //if the file does not exist it creates a new file with the given name
         if(!file.exists()) {
@@ -79,6 +81,9 @@ public class FileOperations {
         }
 
         System.out.println("Successfully opened " + file);
+    }
+
+    public File getFile() {
         return file;
     }
 }
