@@ -21,7 +21,7 @@ public class TableOperations {
         }
 
         if (catalogOperations.queryCatalog(filePath)) {
-            File xmlFile = new File(filePath);
+            File xmlFile = new File("temp.xml");
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             Scanner sc = new Scanner(System.in);
 
@@ -114,7 +114,7 @@ public class TableOperations {
         }
 
         if(catalogOperations.queryCatalog(filePath)) {
-            File xmlFile = new File(filePath);
+            File xmlFile = new File("temp.xml");
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
             try {
@@ -150,7 +150,7 @@ public class TableOperations {
         }
 
         if (catalogOperations.queryCatalog(filePath)) {
-            File xmlFile = new File(filePath);
+            File xmlFile = new File("temp.xml");
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
             try {
@@ -185,7 +185,7 @@ public class TableOperations {
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();
                 DOMSource source = new DOMSource(doc);
-                StreamResult result = new StreamResult(new File(filePath));
+                StreamResult result = new StreamResult(new File("temp.xml"));
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");
                 transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
                 transformer.transform(source, result);
@@ -203,7 +203,7 @@ public class TableOperations {
         }
 
         if (catalogOperations.queryCatalog(filePath)) {
-            File xmlFile = new File(filePath);
+            File xmlFile = new File("temp.xml");
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
             try {
@@ -238,7 +238,7 @@ public class TableOperations {
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();
                 DOMSource source = new DOMSource(doc);
-                StreamResult result = new StreamResult(new File(filePath));
+                StreamResult result = new StreamResult(new File("temp.xml"));
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");
                 transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
                 transformer.transform(source, result);
@@ -256,7 +256,7 @@ public class TableOperations {
         }
 
         if (catalogOperations.queryCatalog(filePath)) {
-            File xmlFile = new File(filePath);
+            File xmlFile = new File("temp.xml");
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
             try {
@@ -309,7 +309,7 @@ public class TableOperations {
         }
 
         if (catalogOperations.queryCatalog(filePath)) {
-            File xmlFile = new File(filePath);
+            File xmlFile = new File("temp.xml");
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             int count = 0;
 
@@ -347,7 +347,7 @@ public class TableOperations {
         }
 
         if (catalogOperations.queryCatalog(filePath)) {
-            File xmlFile = new File(filePath);
+            File xmlFile = new File("temp.xml");
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
             try {
@@ -426,7 +426,7 @@ public class TableOperations {
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();
                 DOMSource source = new DOMSource(doc);
-                StreamResult result = new StreamResult(new File(filePath));
+                StreamResult result = new StreamResult(new File("temp.xml"));
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");
                 transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
                 transformer.transform(source, result);
@@ -444,7 +444,7 @@ public class TableOperations {
         }
 
         if (catalogOperations.queryCatalog(filePath)) {
-            File xmlFile = new File(filePath);
+            File xmlFile = new File("temp.xml");
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
             try {
