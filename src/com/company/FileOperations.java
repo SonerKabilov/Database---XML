@@ -12,6 +12,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class FileOperations {
@@ -90,6 +92,20 @@ public class FileOperations {
     public void saveFile() {
         copyContent("temp.xml", file.getName());
         System.out.println("Successfully saved " + file.getName());
+    }
+
+    public void close() {
+        if(file != null) {
+            System.out.println("Successfully closed " + file.getName());
+            file = null;
+            try {
+                Files.deleteIfExists(Paths.get("temp.xml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("There is not an opened file!");
+        }
     }
 
     public File getFile() {

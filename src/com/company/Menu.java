@@ -28,6 +28,9 @@ public class Menu {
                 case "save":
                     fileOperations.saveFile();
                     break;
+                case "close":
+                    fileOperations.close();
+                    break;
                 case "import":
                     catalogOperations.importTable(arrOfString[1], fileOperations.getFile());
                     break;
