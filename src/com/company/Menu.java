@@ -26,34 +26,34 @@ public class Menu {
                     fileOperations.openFile(arrOfString[1]);
                     break;
                 case "import":
-                    catalogOperations.importTable(arrOfString[1]);
+                    catalogOperations.importTable(arrOfString[1], fileOperations.getFile());
                     break;
                 case "showtables":
                     catalogOperations.showTables();
                     break;
                 case "insert":
-                    tableOperations.insertNode(arrOfString[1]);
+                    tableOperations.insertNode(arrOfString[1], fileOperations.getFile());
                     break;
                 case "describe":
-                    tableOperations.describe(arrOfString[1]);
+                    tableOperations.describe(arrOfString[1], fileOperations.getFile());
                     break;
                 case "delete":
-                    tableOperations.deleteColumn(arrOfString[1], arrOfString[2], arrOfString[3]);
+                    tableOperations.deleteColumn(arrOfString[1], arrOfString[2], arrOfString[3], fileOperations.getFile());
                     break;
                 case "update":
-                    tableOperations.updateColumn(arrOfString[1], arrOfString[2], arrOfString[3], arrOfString[4]);
+                    tableOperations.updateColumn(arrOfString[1], arrOfString[2], arrOfString[3], arrOfString[4], fileOperations.getFile());
                     break;
                 case "select":
-                    tableOperations.selectNode(arrOfString[1],arrOfString[2],arrOfString[3]);
+                    tableOperations.selectNode(arrOfString[1],arrOfString[2],arrOfString[3], fileOperations.getFile());
                     break;
                 case "count":
-                    tableOperations.count(arrOfString[1],arrOfString[2],arrOfString[3]);
+                    tableOperations.count(arrOfString[1],arrOfString[2],arrOfString[3], fileOperations.getFile());
                     break;
                 case "addcolumn":
-                    tableOperations.addColumn(arrOfString[1],arrOfString[2],arrOfString[3]);
+                    tableOperations.addColumn(arrOfString[1],arrOfString[2],arrOfString[3], fileOperations.getFile());
                     break;
                 case "print":
-                    tableOperations.print(arrOfString[1]);
+                    tableOperations.print(arrOfString[1], fileOperations.getFile());
                     break;
                 case "exit":
                     break;

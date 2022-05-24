@@ -13,8 +13,12 @@ import java.util.Scanner;
 public class TableOperations {
     CatalogOperations catalogOperations = new CatalogOperations();
 
-    public void insertNode(String openedFile){
-        String filePath = openedFile + ".xml";
+    public void insertNode(String fileName, File openedFile){
+        String filePath = fileName + ".xml";
+
+        if(!filePath.equalsIgnoreCase(openedFile.getName())) {
+            throw new RuntimeException("Not equal");
+        }
 
         if (catalogOperations.queryCatalog(filePath)) {
             File xmlFile = new File(filePath);
@@ -99,13 +103,15 @@ public class TableOperations {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
-            System.out.println("File not in the database");
         }
     }
 
-    public void describe(String openedFile) {
-        String filePath = openedFile + ".xml";
+    public void describe(String fileName, File openedFile) {
+        String filePath = fileName + ".xml";
+
+        if(!filePath.equalsIgnoreCase(openedFile.getName())) {
+            throw new RuntimeException("Not equal");
+        }
 
         if(catalogOperations.queryCatalog(filePath)) {
             File xmlFile = new File(filePath);
@@ -133,13 +139,15 @@ public class TableOperations {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
-            System.out.println("File not in the database");
         }
     }
 
-    public void deleteColumn(String openedFile, String columnName, String columnValue) {
-        String filePath = openedFile + ".xml";
+    public void deleteColumn(String fileName, String columnName, String columnValue, File openedFile) {
+        String filePath = fileName + ".xml";
+
+        if(!filePath.equalsIgnoreCase(openedFile.getName())) {
+            throw new RuntimeException("Not equal");
+        }
 
         if (catalogOperations.queryCatalog(filePath)) {
             File xmlFile = new File(filePath);
@@ -184,13 +192,15 @@ public class TableOperations {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
-            System.out.println("File not in the database");
         }
     }
 
-    public void updateColumn(String openedFile, String columnName, String columnValue, String newColumnValue) {
-        String filePath = openedFile + ".xml";
+    public void updateColumn(String fileName, String columnName, String columnValue, String newColumnValue, File openedFile) {
+        String filePath = fileName + ".xml";
+
+        if(!filePath.equalsIgnoreCase(openedFile.getName())) {
+            throw new RuntimeException("Not equal");
+        }
 
         if (catalogOperations.queryCatalog(filePath)) {
             File xmlFile = new File(filePath);
@@ -235,13 +245,15 @@ public class TableOperations {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
-            System.out.println("File not in the database");
         }
     }
 
-    public void selectNode(String openedFile, String columnName, String columnValue) {
-        String filePath = openedFile + ".xml";
+    public void selectNode(String fileName, String columnName, String columnValue, File openedFile) {
+        String filePath = fileName + ".xml";
+
+        if(!filePath.equalsIgnoreCase(openedFile.getName())) {
+            throw new RuntimeException("Not equal");
+        }
 
         if (catalogOperations.queryCatalog(filePath)) {
             File xmlFile = new File(filePath);
@@ -286,13 +298,15 @@ public class TableOperations {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
-            System.out.println("File not in the database");
         }
     }
 
-    public void count(String openedFile, String columnName, String columnValue) {
-        String filePath = openedFile + ".xml";
+    public void count(String fileName, String columnName, String columnValue, File openedFile) {
+        String filePath = fileName + ".xml";
+
+        if(!filePath.equalsIgnoreCase(openedFile.getName())) {
+            throw new RuntimeException("Not equal");
+        }
 
         if (catalogOperations.queryCatalog(filePath)) {
             File xmlFile = new File(filePath);
@@ -322,13 +336,15 @@ public class TableOperations {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
-            System.out.println("File not in the database");
         }
     }
 
-    public void addColumn(String openedFile, String columnName, String columnType){
-        String filePath = openedFile + ".xml";
+    public void addColumn(String fileName, String columnName, String columnType, File openedFile){
+        String filePath = fileName + ".xml";
+
+        if(!filePath.equalsIgnoreCase(openedFile.getName())) {
+            throw new RuntimeException("Not equal");
+        }
 
         if (catalogOperations.queryCatalog(filePath)) {
             File xmlFile = new File(filePath);
@@ -417,13 +433,15 @@ public class TableOperations {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
-            System.out.println("File not in the database");
         }
     }
 
-    public void print(String openedFile){
-        String filePath = openedFile + ".xml";
+    public void print(String fileName, File openedFile){
+        String filePath = fileName + ".xml";
+
+        if(!filePath.equalsIgnoreCase(openedFile.getName())) {
+            throw new RuntimeException("Not equal");
+        }
 
         if (catalogOperations.queryCatalog(filePath)) {
             File xmlFile = new File(filePath);
@@ -496,8 +514,6 @@ public class TableOperations {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
-            System.out.println("File not in the database");
         }
     }
 }
