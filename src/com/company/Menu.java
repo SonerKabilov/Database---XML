@@ -62,6 +62,7 @@ public class Menu {
                     tableOperations.print(arrOfString[1], fileOperations.getFile());
                     break;
                 case "exit":
+                    fileOperations.exitProgram();
                     break;
                 default:
                     System.out.println("Invalid command");
