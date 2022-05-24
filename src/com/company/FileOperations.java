@@ -10,7 +10,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.File;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class FileOperations {
@@ -80,10 +81,36 @@ public class FileOperations {
             }
         }
 
+        //creating a temporary file to make changes before saving
+        copyContent(filePath, "temp.xml");
+
         System.out.println("Successfully opened " + file);
+    }
+
+    public void saveFile() {
+        copyContent("temp.xml", file.getName());
+        System.out.println("Successfully saved " + file.getName());
     }
 
     public File getFile() {
         return file;
+    }
+
+    private void copyContent(String readFrom, String writeTo) {
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(readFrom), StandardCharsets.UTF_8));
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(writeTo), StandardCharsets.UTF_8));
+
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                writer.write(line + "\n");
+            }
+
+            reader.close();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
