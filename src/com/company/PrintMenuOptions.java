@@ -6,6 +6,7 @@ public class PrintMenuOptions {
         System.out.println("\nThe following commands are supported:");
         System.out.println("open <filename>\t\t/opens <filename>/");
         System.out.println("save \t\t/saves the currently open file/");
+        System.out.println("saveas \t\t/saves the currently open file in <filepath>/");
         System.out.println("close\t\t/closes currently opened file/");
         System.out.println("import <filename>\t\t/imports <filename> to the database/");
         System.out.println("showtables\t\t/shows all tables in the database/");
