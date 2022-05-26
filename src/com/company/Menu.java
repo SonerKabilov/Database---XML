@@ -28,6 +28,9 @@ public class Menu {
                 case "save":
                     fileOperations.saveFile();
                     break;
+                case "saveas":
+                    fileOperations.saveAs(arrOfString[1]);
+                    break;
                 case "close":
                     fileOperations.close();
                     break;

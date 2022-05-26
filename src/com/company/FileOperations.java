@@ -94,6 +94,26 @@ public class FileOperations {
         System.out.println("Successfully saved " + file.getName());
     }
 
+    public void saveAs(String filePath) {
+        int index = filePath.lastIndexOf(".");
+
+        if(index > 0) {
+            String extension = filePath.substring(index + 1);
+
+            if(extension.equalsIgnoreCase("xml")) {
+                copyContent("temp.xml", filePath);
+                System.out.println("Successfully saved " + filePath);
+            } else {
+                System.out.println("File not a xml");
+            }
+        } else {
+            //if the user input is without an extension it automatically saves the file as a xml
+            String fileWithExtension = filePath + ".xml";
+            copyContent("temp.xml", fileWithExtension);
+            System.out.println("Successfully saved " + fileWithExtension);
+        }
+    }
+
     public void close() {
         if(file != null) {
             System.out.println("Successfully closed " + file.getName());
