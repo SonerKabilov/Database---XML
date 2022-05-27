@@ -6,18 +6,23 @@
     <configElement columnName="school">String</configElement>
   </config>
 <student>
-    <name>Anna</name>
-    <age>10</age>
-    <school> </school>
+    <name type="String">Anna</name>
+    <age type="Integer">10</age>
+    <school type="String">NULL</school>
    </student>
 <student>
-    <name>Peter</name>
-    <age>10</age>
-    <school> </school>
+    <name type="String">Peter</name>
+    <age type="Integer">10</age>
+    <school type="String">NULL</school>
   </student>
 <student>
-    <name>George</name>
-    <age>15</age>
-    <school> </school>
+    <name type="String">George</name>
+    <age type="Integer">15</age>
+    <school type="String">NULL</school>
+  </student>
+<student>
+    <name type="String">Maria</name>
+    <age type="Integer">14</age>
+    <school type="String">MG</school>
   </student>
 </students>
