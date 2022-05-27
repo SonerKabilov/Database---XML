@@ -241,20 +241,44 @@ public class TableOperations {
                     if (!node.getNodeName().equals("config")) {
                         if (node.getNodeType() == Node.ELEMENT_NODE) {
                             Element eElement = (Element) node;
-                            String cElement =  eElement.getElementsByTagName(columnName).item(0).getTextContent();
+                            String columnTextContent =  eElement.getElementsByTagName(columnName).item(0).getTextContent();
+                            String columnDataType = eElement.getElementsByTagName(columnName).item(0).getAttributes().item(0).getTextContent();
 
-                            if (cElement.equals(columnValue)) {
-                                eElement.getElementsByTagName(columnName).item(0).setTextContent(newColumnValue);
-                                isUpdated = true;
+                            if (columnTextContent.equals(columnValue)) {
+                                if(columnDataType.equalsIgnoreCase("String")) {
+                                    eElement.getElementsByTagName(columnName).item(0).setTextContent(newColumnValue);
+                                    isUpdated = true;
+                                } else if(columnDataType.equalsIgnoreCase("Integer")) {
+                                    try {
+                                        if(!newColumnValue.equalsIgnoreCase("null")) {
+                                            Integer.parseInt(newColumnValue);
+                                        }
+                                    } catch (NumberFormatException e) {
+                                        throw new NumberFormatException(newColumnValue + " is not a valid Integer. Try again");
+                                    }
+
+                                    eElement.getElementsByTagName(columnName).item(0).setTextContent(newColumnValue);
+                                    isUpdated = true;
+                                } else if(columnDataType.equalsIgnoreCase("Double")) {
+                                    try {
+                                        if(!newColumnValue.equalsIgnoreCase("null")) {
+                                            Double.parseDouble(newColumnValue);
+                                        }
+                                    } catch (NumberFormatException e) {
+                                        throw new NumberFormatException(newColumnValue + " is not a valid Double. Try again");
+                                    }
+
+                                    eElement.getElementsByTagName(columnName).item(0).setTextContent(newColumnValue);
+                                    isUpdated = true;
+                                }
                             }
                         }
                     }
                 }
 
                 if (isUpdated) {
-                    System.out.println("Column '" + columnName + "' successfully updated with value " + newColumnValue);
-                } else {
-                    System.out.println("Invalid column name or value");
+                    System.out.println("All columns with name '" + columnName + "' and value '" + columnValue
+                            + "' successfully updated with the new value '" + newColumnValue + "'");
                 }
 
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
