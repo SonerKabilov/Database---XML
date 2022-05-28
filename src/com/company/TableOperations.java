@@ -14,7 +14,7 @@ public class TableOperations {
 
     CatalogOperations catalogOperations = new CatalogOperations();
 
-    public void insertNode(String fileName, File openedFile){
+    public void insertNode(String fileName, File openedFile) {
         String filePath = fileName + ".xml";
 
         if(!filePath.equalsIgnoreCase(openedFile.getName())) {
@@ -95,13 +95,7 @@ public class TableOperations {
                 System.out.println("New node added to the table");
 
                 //writing the content into the xml file
-                Transformer transformerFactory = TransformerFactory.newInstance().newTransformer();
-                transformerFactory.setOutputProperty(OutputKeys.METHOD, "xml");
-                transformerFactory.setOutputProperty(OutputKeys.INDENT, "yes");
-                transformerFactory.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-                Source source = new DOMSource(doc);
-                Result result = new StreamResult(xmlFile);
-                transformerFactory.transform(source, result);
+                writeContentIntoXml(doc, xmlFile);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -187,13 +181,8 @@ public class TableOperations {
                     System.out.println("Columns '" + columnName + "' with value " + columnValue + " not found");
                 }
 
-                TransformerFactory transformerFactory = TransformerFactory.newInstance();
-                Transformer transformer = transformerFactory.newTransformer();
-                DOMSource source = new DOMSource(doc);
-                StreamResult result = new StreamResult(new File("temp.xml"));
-                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-                transformer.transform(source, result);
+                //writing the content into the xml file
+                writeContentIntoXml(doc, xmlFile);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -265,13 +254,8 @@ public class TableOperations {
                             + "' successfully updated with the new value '" + newColumnValue + "'");
                 }
 
-                TransformerFactory transformerFactory = TransformerFactory.newInstance();
-                Transformer transformer = transformerFactory.newTransformer();
-                DOMSource source = new DOMSource(doc);
-                StreamResult result = new StreamResult(new File("temp.xml"));
-                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-                transformer.transform(source, result);
+                //writing the content into the xml file
+                writeContentIntoXml(doc, xmlFile);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -374,7 +358,7 @@ public class TableOperations {
         }
     }
 
-    public void addColumn(String fileName, String columnName, String columnType, File openedFile){
+    public void addColumn(String fileName, String columnName, String columnType, File openedFile) {
         String filePath = fileName + ".xml";
 
         if(!filePath.equalsIgnoreCase(openedFile.getName())) {
@@ -461,26 +445,20 @@ public class TableOperations {
                     }
 
                     if (isAdded) {
+                        //writing the content into the xml file
+                        writeContentIntoXml(doc, xmlFile);
                         System.out.println("Column successfully added");
                     }
                 } else {
                     System.out.println("Column already in the table");
                 }
-
-                TransformerFactory transformerFactory = TransformerFactory.newInstance();
-                Transformer transformer = transformerFactory.newTransformer();
-                DOMSource source = new DOMSource(doc);
-                StreamResult result = new StreamResult(new File("temp.xml"));
-                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-                transformer.transform(source, result);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void print(String fileName, File openedFile){
+    public void print(String fileName, File openedFile) {
         String filePath = fileName + ".xml";
 
         if(!filePath.equalsIgnoreCase(openedFile.getName())) {
@@ -562,6 +540,20 @@ public class TableOperations {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void writeContentIntoXml(Document doc, File xmlFile) {
+        try {
+            Transformer transformerFactory = TransformerFactory.newInstance().newTransformer();
+            transformerFactory.setOutputProperty(OutputKeys.METHOD, "xml");
+            transformerFactory.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformerFactory.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            Source source = new DOMSource(doc);
+            Result result = new StreamResult(xmlFile);
+            transformerFactory.transform(source, result);
+        } catch (TransformerException e) {
+            e.printStackTrace();
         }
     }
 }
