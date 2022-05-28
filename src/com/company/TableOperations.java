@@ -11,6 +11,7 @@ import java.io.File;
 import java.util.Scanner;
 
 public class TableOperations {
+
     CatalogOperations catalogOperations = new CatalogOperations();
 
     public void insertNode(String fileName, File openedFile){
@@ -45,60 +46,43 @@ public class TableOperations {
                             if (node1.getNodeType() == node1.ELEMENT_NODE) {
                                 Element el = (Element) node1;
                                 Element textNode = doc.createElement(el.getAttribute("columnName"));
-                                int flag;
                                 System.out.println(el.getAttribute("columnName") +" ("+ el.getTextContent() +"): ");
+                                String xmlText = sc.nextLine();
 
                                 if (el.getTextContent().equalsIgnoreCase("string")) {
-                                    String xmlText = sc.nextLine();
                                     textNode.setTextContent(xmlText);
                                     Attr attrType = doc.createAttribute("type");
                                     attrType.setValue(el.getTextContent());
                                     textNode.setAttributeNode(attrType);
                                     nodeElement.appendChild(textNode);
                                 } else if (el.getTextContent().equalsIgnoreCase("integer")) {
-                                    do {
-                                        String xmlText = sc.nextLine();
-                                        flag = 0;
-
-                                        try {
-                                            if(!xmlText.equalsIgnoreCase("null")) {
-                                                Integer.parseInt(xmlText);
-                                            }
-                                        } catch (NumberFormatException e) {
-                                            flag = 1;
-                                            System.out.println(xmlText + " is not a valid integer. Try again");
+                                    try {
+                                        if(!xmlText.equalsIgnoreCase("null")) {
+                                            Integer.parseInt(xmlText);
                                         }
+                                    } catch (NumberFormatException e) {
+                                        throw new NumberFormatException(xmlText + " is not a valid integer. Try again");
+                                    }
 
-                                        if (flag == 0) {
-                                            textNode.setTextContent(xmlText);
-                                            Attr attrType = doc.createAttribute("type");
-                                            attrType.setValue(el.getTextContent());
-                                            textNode.setAttributeNode(attrType);
-                                            nodeElement.appendChild(textNode);
-                                        }
-                                    } while (flag == 1);
+                                    textNode.setTextContent(xmlText);
+                                    Attr attrType = doc.createAttribute("type");
+                                    attrType.setValue(el.getTextContent());
+                                    textNode.setAttributeNode(attrType);
+                                    nodeElement.appendChild(textNode);
                                 } else if (el.getTextContent().equalsIgnoreCase("double")) {
-                                    do {
-                                        String xmlText = sc.nextLine();
-                                        flag = 0;
-
-                                        try {
-                                            if(!xmlText.equalsIgnoreCase("null")) {
-                                                Double.parseDouble(xmlText);
-                                            }
-                                        } catch (NumberFormatException e) {
-                                            flag = 1;
-                                            System.out.println(xmlText + " is not a valid double. Try again");
+                                    try {
+                                        if(!xmlText.equalsIgnoreCase("null")) {
+                                            Double.parseDouble(xmlText);
                                         }
+                                    } catch (NumberFormatException e) {
+                                        throw new NumberFormatException(xmlText + " is not a valid double. Try again");
+                                    }
 
-                                        if (flag == 0) {
-                                            textNode.setTextContent(xmlText);
-                                            Attr attrType = doc.createAttribute("type");
-                                            attrType.setValue(el.getTextContent());
-                                            textNode.setAttributeNode(attrType);
-                                            nodeElement.appendChild(textNode);
-                                        }
-                                    } while (flag == 1);
+                                    textNode.setTextContent(xmlText);
+                                    Attr attrType = doc.createAttribute("type");
+                                    attrType.setValue(el.getTextContent());
+                                    textNode.setAttributeNode(attrType);
+                                    nodeElement.appendChild(textNode);
                                 }
                             }
                         }
