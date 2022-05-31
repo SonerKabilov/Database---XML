@@ -64,6 +64,9 @@ public class Menu {
                 case "print":
                     tableOperations.print(arrOfString[1], fileOperations.getFile());
                     break;
+                case "rename":
+                    fileOperations.renameFile(arrOfString[1], arrOfString[2]);
+                    break;
                 case "exit":
                     fileOperations.exitProgram();
                     break;
