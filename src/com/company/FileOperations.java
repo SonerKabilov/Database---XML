@@ -4,10 +4,7 @@ import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
@@ -138,6 +135,63 @@ public class FileOperations {
         System.out.println("Exiting the program...");
     }
 
+    public void renameFile(String oldName, String newName) {
+        String oldFile = oldName + ".xml";
+
+        if(!oldFile.equalsIgnoreCase(file.getName())) {
+            throw new RuntimeException("Not equal");
+        }
+
+        File fileBeforeRename = new File(oldFile);
+        String newFile = newName + ".xml";
+        File renamedFile = new File(newFile);
+        boolean flag = fileBeforeRename.renameTo(renamedFile);
+
+        if (flag) {
+            System.out.println("File successfully renamed");
+
+            file = renamedFile;
+            renameRootElement(newFile, newName);
+            renameRootElement("temp.xml", newName);
+
+            File catalogFile = new File("catalog.xml");
+            DocumentBuilderFactory catalogFactory = DocumentBuilderFactory.newInstance();
+
+            try {
+                DocumentBuilder builder = catalogFactory.newDocumentBuilder();
+                Document doc = builder.parse(catalogFile);
+
+                Element root = doc.getDocumentElement();
+                NodeList childNodes = root.getChildNodes();
+
+                for(int i = 0; i < childNodes.getLength(); i++) {
+                    Node node = childNodes.item(i);
+                    if (node.getNodeType() == Node.ELEMENT_NODE) {
+                        Element eElement = (Element) node;
+                        String cElement =  eElement.getElementsByTagName("fileName").item(0).getTextContent();
+                        if(cElement.equals(oldName)) {
+                            eElement.getElementsByTagName("filePath").item(0).setTextContent(newFile);
+                            eElement.getElementsByTagName("fileName").item(0).setTextContent(newName);
+                        }
+                    }
+                }
+
+                Transformer transformerFactory = TransformerFactory.newInstance().newTransformer();
+                transformerFactory.setOutputProperty(OutputKeys.METHOD, "xml");
+                transformerFactory.setOutputProperty(OutputKeys.INDENT, "yes");
+                transformerFactory.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+                Source source = new DOMSource(doc);
+                Result result = new StreamResult(catalogFile);
+                transformerFactory.transform(source, result);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("File with the given name exists");
+        }
+    }
+
     public File getFile() {
         return file;
     }
@@ -156,6 +210,30 @@ public class FileOperations {
             reader.close();
             writer.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void renameRootElement(String filePath, String newName) {
+        File xmlFile = new File(filePath);
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(xmlFile);
+            doc.getDocumentElement().normalize();
+            Node root = doc.getDocumentElement();
+            doc.renameNode( root, null, newName);
+
+            Transformer transformerFactory = TransformerFactory.newInstance().newTransformer();
+            transformerFactory.setOutputProperty(OutputKeys.METHOD, "xml");
+            transformerFactory.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformerFactory.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            Source source = new DOMSource(doc);
+            Result result = new StreamResult(xmlFile);
+            transformerFactory.transform(source, result);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
