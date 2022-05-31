@@ -505,12 +505,14 @@ public class TableOperations {
 
                     System.out.println("----------------------");
 
-                    if (i > 0 && i < childNodes.getLength()) {
-                        System.out.println("next | previous | exit");
+                    if (childNodes.getLength() == 1) {
+                        System.out.println("exit");
+                    } else if (i == childNodes.getLength()-1) {
+                        System.out.println("previous | exit");
                     } else if (i==0) {
                         System.out.println("next | exit");
                     } else {
-                        System.out.println("previous | exit");
+                        System.out.println("next | previous | exit");
                     }
 
                     pageOption = sc.nextLine();
