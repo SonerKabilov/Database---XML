@@ -13,33 +13,6 @@ import java.io.File;
 
 public class CatalogOperations {
 
-    public boolean queryCatalog(String filePath) {
-        File xmlFile = new File("catalog.xml");
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
-        try {
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(xmlFile);
-
-            Element root = doc.getDocumentElement();
-            NodeList childNodes = root.getChildNodes();
-
-            for(int i = 0; i < childNodes.getLength(); i++) {
-                Node node = childNodes.item(i);
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) node;
-                    String cElement =  eElement.getElementsByTagName("filePath").item(0).getTextContent();
-                    if(cElement.equals(filePath)) {
-                        return true;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
     public void importTable(String fileName, File openedFile) {
         String filePath = fileName + ".xml";
         File importedFile = new File(filePath);
@@ -116,5 +89,32 @@ public class CatalogOperations {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean queryCatalog(String filePath) {
+        File xmlFile = new File("catalog.xml");
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(xmlFile);
+
+            Element root = doc.getDocumentElement();
+            NodeList childNodes = root.getChildNodes();
+
+            for(int i = 0; i < childNodes.getLength(); i++) {
+                Node node = childNodes.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) node;
+                    String cElement =  eElement.getElementsByTagName("filePath").item(0).getTextContent();
+                    if(cElement.equals(filePath)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
