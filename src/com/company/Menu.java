@@ -23,49 +23,97 @@ public class Menu {
                     menuOptions.help();
                     break;
                 case "open":
-                    fileOperations.openFile(arrOfString[1]);
+                    try {
+                        fileOperations.openFile(arrOfString[1]);
+                    } catch (RuntimeException e){
+                        System.out.println("Enter the file name after the command");
+                    }
                     break;
                 case "save":
                     fileOperations.saveFile();
                     break;
                 case "saveas":
-                    fileOperations.saveAs(arrOfString[1]);
+                    try {
+                        fileOperations.saveAs(arrOfString[1]);
+                    } catch (RuntimeException e) {
+                        System.out.println("Enter the file name after the command");
+                    }
                     break;
                 case "close":
                     fileOperations.close();
                     break;
                 case "import":
-                    catalogOperations.importTable(arrOfString[1], fileOperations.getFile());
+                    try {
+                        catalogOperations.importTable(arrOfString[1], fileOperations.getFile());
+                    } catch (RuntimeException e) {
+                        System.out.println("Enter the file name after the command");
+                    }
                     break;
                 case "showtables":
                     catalogOperations.showTables();
                     break;
                 case "insert":
-                    tableOperations.insertNode(arrOfString[1], fileOperations.getFile());
+                    try {
+                        tableOperations.insertNode(arrOfString[1], fileOperations.getFile());
+                    } catch (RuntimeException e) {
+                        System.out.println("Enter the file name after the command");
+                    }
                     break;
                 case "describe":
-                    tableOperations.describe(arrOfString[1], fileOperations.getFile());
+                    try {
+                        tableOperations.describe(arrOfString[1], fileOperations.getFile());
+                    } catch (RuntimeException e) {
+                        System.out.println("Enter the file name after the command");
+                    }
                     break;
                 case "delete":
-                    tableOperations.deleteColumn(arrOfString[1], arrOfString[2], arrOfString[3], fileOperations.getFile());
+                    try {
+                        tableOperations.deleteColumn(arrOfString[1], arrOfString[2], arrOfString[3], fileOperations.getFile());
+                    } catch (RuntimeException e) {
+                        System.out.println("Enter the file name, column name and column value after the command");
+                    }
                     break;
                 case "update":
-                    tableOperations.updateColumn(arrOfString[1], arrOfString[2], arrOfString[3], arrOfString[4], fileOperations.getFile());
+                    try {
+                        tableOperations.updateColumn(arrOfString[1], arrOfString[2], arrOfString[3], arrOfString[4], fileOperations.getFile());
+                    } catch (RuntimeException e) {
+                        System.out.println("Enter the file name, column name and old column value and new column value after the command");
+                    }
                     break;
                 case "select":
-                    tableOperations.selectNode(arrOfString[1],arrOfString[2],arrOfString[3], fileOperations.getFile());
+                    try {
+                        tableOperations.selectNode(arrOfString[1],arrOfString[2],arrOfString[3], fileOperations.getFile());
+                    } catch (RuntimeException e) {
+                        System.out.println("Enter the file name, column name and column value after the command");
+                    }
                     break;
                 case "count":
-                    tableOperations.count(arrOfString[1],arrOfString[2],arrOfString[3], fileOperations.getFile());
+                    try {
+                        tableOperations.count(arrOfString[1],arrOfString[2],arrOfString[3], fileOperations.getFile());
+                    } catch (RuntimeException e) {
+                        System.out.println("Enter the file name, column name and column value after the command");
+                    }
                     break;
                 case "addcolumn":
-                    tableOperations.addColumn(arrOfString[1],arrOfString[2],arrOfString[3], fileOperations.getFile());
+                    try {
+                        tableOperations.addColumn(arrOfString[1],arrOfString[2],arrOfString[3], fileOperations.getFile());
+                    } catch (RuntimeException e) {
+                        System.out.println("Enter the file name, column name and column type after the command");
+                    }
                     break;
                 case "print":
-                    tableOperations.print(arrOfString[1], fileOperations.getFile());
+                    try {
+                        tableOperations.print(arrOfString[1], fileOperations.getFile());
+                    } catch (RuntimeException e) {
+                        System.out.println("Enter the file name after the command");
+                    }
                     break;
                 case "rename":
-                    fileOperations.renameFile(arrOfString[1], arrOfString[2]);
+                    try {
+                        fileOperations.renameFile(arrOfString[1], arrOfString[2]);
+                    } catch (RuntimeException e) {
+                        System.out.println("Enter the old file name and the new file name after the command");
+                    }
                     break;
                 case "exit":
                     fileOperations.exitProgram();
